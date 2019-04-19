@@ -1,0 +1,11 @@
+.error {
+  color: firebrick;
+  font-weight: 900;
+  animation: jump 1s infinite;
+}
+
+@keyframes jump {
+  0% {margin-left: 0px}
+  50% {margin-left: 100px}
+  100% {margin-left: 0px}
+}
