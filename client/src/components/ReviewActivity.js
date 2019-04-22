@@ -21,7 +21,7 @@ class ReviewActivity extends Component {
     }
 
     componentDidMount = () => {
-        axios.get(`http://localhost:8000/activities/${this.props.match.params._id}`)
+        axios.get(`/activities/${this.props.match.params._id}`)
             .then(res => {
                 this.setState({activity: res.data.activity});
             }).catch(err => {
@@ -31,7 +31,7 @@ class ReviewActivity extends Component {
 
     review = (e) => {
         e.preventDefault();
-        axios.post(`http://localhost:8000/activities/${this.props.match.params._id}/review`, this.state.review)
+        axios.post(`/activities/${this.props.match.params._id}/review`, this.state.review)
             .then(res => {
                 this.componentDidMount();
             }).catch(err => {

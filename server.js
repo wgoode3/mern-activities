@@ -1,12 +1,10 @@
 const express = require('express'),
            bp = require('body-parser'),
-         cors = require('cors'),
          path = require('path'),
       DB_NAME = "activities",
          port = 8000,
           app = express();
 
-app.use(cors());
 app.use(bp.json());
 app.use(express.static(path.join(__dirname, './client/build')));
 

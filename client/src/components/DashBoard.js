@@ -2,6 +2,19 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+function bubbleSort(arr, key) {
+    for(let i=0; i<arr.length-1; i++){
+        for(let j=0; j<arr.length-1-i; j++){
+            if(arr[j][key] < arr[j+1][key]){
+                let temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+        }
+    }
+    return arr;
+}
+
 class DashBoard extends Component {
     constructor(props) {
         super(props);
@@ -11,9 +24,11 @@ class DashBoard extends Component {
     }
 
     componentDidMount = () => {
-        axios.get("http://localhost:8000/activities")
+        axios.get("/activities")
             .then(res => {
-                this.setState({activities: res.data.activities}, this.rateThings());
+                this.setState({activities: res.data.activities}, () => {
+                    this.rateThings();
+                });
             }).catch(err => {
                 console.log(err);
             });
@@ -29,10 +44,10 @@ class DashBoard extends Component {
                 }
                 activities[i].avgRating = sum / activities[i].reviews.length;
             } else {
-                activities[i].avgRating = "No reviews";
+                activities[i].avgRating = 0;
             }
         }
-        console.log(activities);
+        activities = bubbleSort(activities, "avgRating");
         this.setState({activities: activities});
     }
 
@@ -44,8 +59,8 @@ class DashBoard extends Component {
                     <thead>
                         <tr>
                             <th>Type</th>
-                            <th>Duration</th>
                             <th>Rating</th>
+                            <th>Duration</th>
                             <th>Actions</th>
                         </tr>
                     </thead>

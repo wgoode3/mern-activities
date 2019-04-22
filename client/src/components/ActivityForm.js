@@ -28,7 +28,7 @@ class ActivityForm extends Component {
 
     create = (e) => {
         e.preventDefault();
-        axios.post("http://localhost:8000/activities", this.state.activity)
+        axios.post("/activities", this.state.activity)
             .then(res => {
                 if(res.data.errors){
                     this.setState({errors: res.data.errors.errors});
